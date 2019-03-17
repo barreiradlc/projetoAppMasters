@@ -1,12 +1,19 @@
-/* form{
-  margin: auto
-}
-form label {
-  display: block;
-  padding: 0.5em 0;
-} */
 div#root {
   margin: 1em .5em;
+}
+button.acederFormulario.btn.btn-primary {
+  position: fixed;
+  bottom: 0;
+  z-index: 982137982137289137;
+}
+.opcoes {
+  display: block;
+}
+.opcoes button {
+  display: block;
+  text-align: center;
+  margin: .5em !important;
+  float: right !important;
 }
 input.botConfirma {
   margin: 1em auto;

@@ -8,7 +8,7 @@ import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 // bootstrap
 import 'bootstrap/dist/css/bootstrap.css';
-import { Collapse, Button, CardBody, Card } from 'reactstrap';
+import { Collapse, Button} from 'reactstrap';
 // formatação de data
 import dateFnsFormat from 'date-fns/format';
 import dateFnsParse from 'date-fns/parse';
@@ -75,40 +75,32 @@ class Form extends Component {
         credor: ''
     })
   }
-
-
   
   render() {
-    const { selectedDay } = this.state;
     const FORMAT = 'DD/MM/YYYY';
 
     return (
-        <div>
- 
- <Button color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Novo empréstimo</Button>
- 
- <Collapse
-          isOpen={this.state.collapse}
-          onEntering={this.onEntering}
-          onEntered={this.onEntered}
-          onExiting={this.onExiting}
-          onExited={this.onExited}
-        >
-        <form onSubmit={this.submeter}>
+      <div>
 
-        <Button className="botFechar" color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>x</Button>
+        <Button className="acederFormulario" color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Novo empréstimo</Button>
+  
+        <Collapse
+            isOpen={this.state.collapse}
+            onEntering={this.onEntering}
+            onEntered={this.onEntered}
+            onExiting={this.onExiting}
+            onExited={this.onExited}
+          >
+          <form onSubmit={this.submeter}>
 
-        
-        
-        <h4>Novo empréstimo</h4>
+          <Button className="botFechar" color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>x</Button>
+          
+          <h4>Novo empréstimo</h4>
 
-        <label>
+          <label>
             Data de empréstimo:
-            <div>
-                  
+            <div>                    
 
-                {/* {selectedDay && <p>Data de empréstimo: {selectedDay.toLocaleDateString()}</p>}
-                {!selectedDay && <p> Data de empréstimo:</p>} */}
                 <DayPickerInput 
                     name="dataInicio"
                     value={this.state.dataInicio}
@@ -120,33 +112,30 @@ class Form extends Component {
                     placeholder={`${dateFnsFormat(new Date(), FORMAT)}`}
                     />
             </div>    
-        </label>  
+          </label>  
 
-        
-        <label>
-            Item:
-                <input 
-                    name="item"
-                    value={this.state.item}
-                    onChange={this.handleChange}
-                />
-        </label>
+          <label>
+          Item:
+            <input 
+                name="item"
+                value={this.state.item}
+                onChange={this.handleChange}
+            />
+          </label>
 
-        <label>
-            Para quem:
+          <label>
+          Para quem:
             <input 
                 value={this.state.credor}
                 onChange={this.handleChange}
                 type="text" 
                 name="credor" />
-        </label>
+          </label>
 
-        <input className="botConfirma" type="submit" value="Confirmar" onClick={this.submeter} />
-
-        </form>
+          <input className="botConfirma" type="submit" value="Confirmar" onClick={this.submeter} />
+          </form>
         </Collapse>
-
-        </div>
+      </div>
     );
   }
 }
