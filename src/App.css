@@ -1,0 +1,103 @@
+/* form{
+  margin: auto
+}
+form label {
+  display: block;
+  padding: 0.5em 0;
+} */
+div#root {
+  margin: 1em .5em;
+}
+input.botConfirma {
+  margin: 1em auto;
+  text-align: center !important;
+  display: -webkit-box;
+  background: aliceblue;
+  border-radius: 1em;
+  padding: 1em;
+  border: none;
+  box-shadow: 3px 6px 7px #88888C;
+}
+.card {
+  animation-name: confirma;  
+  transition: 2s;
+  padding: 1em;
+  box-shadow: 3px 6px 7px #88888C;
+  margin: .5em auto;
+  background: aliceblue;
+  z-index: 029381209381209381290381209381;
+}
+.gradeCards {
+  margin: 0 0 16em 0;
+}
+.DayPickerInput div {
+  bottom: 0em;
+}
+label {
+  display: grid;
+  padding: .2em 0;
+  margin: auto !important;
+}
+label input {
+  border: none;
+  border-bottom: 1px solid;
+}
+button.botFechar.btn.btn-primary {
+  width: 2em;
+  height: 2em;
+  padding: 0em;
+}
+form {
+  position: fixed;
+  bottom: 0em !important;
+  background: #fff;
+  padding:3vh;
+  margin: auto !important;
+  width: -webkit-fill-available;
+  width: -moz-fill-available;
+  text-align: left;
+  display: block;
+  z-index: 1289372983712893789;
+}
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes confirma {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
