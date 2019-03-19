@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 // shortid para ids geradas automaticamente
 import shortid from 'shortid';
 // popover de data
@@ -12,6 +11,10 @@ import { Collapse, Button} from 'reactstrap';
 // formatação de data
 import dateFnsFormat from 'date-fns/format';
 import dateFnsParse from 'date-fns/parse';
+
+let mensagemItemVazio = 'Todos os campos devem ser preenchidos';
+let mensagemDataInferior = 'Está prestes à atribuir uma data passada à devolução deste item' ;
+let resultadoDataInferior;
 
 function parseDate(str, format, locale) {
   const parsed = dateFnsParse(str, format, { locale });
@@ -33,23 +36,30 @@ class Form extends Component {
         this.toggle = this.toggle.bind(this);
         this.state = { collapse: false, status: 'Closed' };
 
-        this.handleDayChange = this.handleDayChange.bind(this);
+        this.handleIniDayChange = this.handleIniDayChange.bind(this);
+        this.handleFinDayChange = this.handleFinDayChange.bind(this);
+
         this.state = {
+            credor:'',
             item: '',
-            selectedDay: undefined,            
+            selectedDay: undefined,
+            dataInicio: '',
+            dataFinal: ''
         };
         
     }
 
-      toggle() {
-        this.setState(state => ({ collapse: !state.collapse }));
-      }
+    toggle() {
+       this.setState(state => ({ collapse: !state.collapse }));
+    }
     
   
-    handleDayChange(day) {
-        this.setState({ selectedDay: day });
+    handleIniDayChange(day) {
         this.setState({ dataInicio: day });
-        
+    }
+
+    handleFinDayChange(day) {
+        this.setState({ dataFinal: day });
     }
 
     handleChange = (event) => {
@@ -58,23 +68,81 @@ class Form extends Component {
         })
     }
 
+    componentDidMount() {
+      // this.setState({
+      //   item: '',
+      //   dataInicio: '',
+      //   credor: '',
+      //   dataFinal:'',
+      //   expirado: false
+      // })
+    }
+
     submeter = (event) => {
 
-    event.preventDefault();
-    this.props.onSubmit({
+    if ( this.state.item === '' || this.state.dataInicio === '' || this.state.dataFinal === '' || this.state.credor === '') {
+      alert(mensagemItemVazio);
+      event.preventDefault();
+    } else {
+
+    let data = this.state.dataFinal .toISOString();
+    
+    if (data < this.props.hoje) {
+        
+      
+      resultadoDataInferior = window.confirm(mensagemDataInferior);
+      event.preventDefault();
+      
+      
+
+      if ( resultadoDataInferior === true ) { 
+        console.log("hoje: ",this.props.hoje);
+        console.log("devolução: ",this.state.dataFinal);
+        event.preventDefault();
+        this.props.onSubmit({
+          id: shortid.generate() ,
+          item: this.state.item,
+          complete: false,
+          //emprestimo
+          dataInicio: this.state.dataInicio,
+          dataFinal: this.state.dataFinal,
+          credor: this.state.credor,
+          expirado: true,   
+        });
+        this.setState({
+            item: '',
+            dataInicio: '',
+            credor: '',
+            dataFinal:''
+        })
+       } else {
+        this.setState({
+          dataFinal:''
+        })
+       }
+    } else {
+      console.log("hoje: ",this.props.hoje);
+      console.log("devolução: ",this.state.dataFinal);
+      event.preventDefault();
+      this.props.onSubmit({
         id: shortid.generate() ,
         item: this.state.item,
         complete: false,
         //emprestimo
         dataInicio: this.state.dataInicio,
-        credor: this.state.credor   
-    });
-    this.setState({
-        item: '',
-        dataInicio: '',
-        credor: ''
-    })
+        dataFinal: this.state.dataFinal,
+        credor: this.state.credor,
+        expirado: false,   
+      });
+      this.setState({
+          item: '',
+          dataInicio: '',
+          credor: '',
+          dataFinal:''
+      })
   }
+}
+}
   
   render() {
     const FORMAT = 'DD/MM/YYYY';
@@ -105,7 +173,24 @@ class Form extends Component {
                     name="dataInicio"
                     value={this.state.dataInicio}
                     onChange={this.handleChange}
-                    onDayChange={this.handleDayChange}
+                    onDayChange={this.handleIniDayChange}
+                    formatDate={formatDate} 
+                    format={FORMAT}
+                    parseDate={parseDate}
+                    placeholder={`${dateFnsFormat(new Date(), FORMAT)}`}
+                    />
+            </div>    
+          </label>  
+
+          <label>
+            Data de devolucao:
+            <div>                    
+
+                <DayPickerInput 
+                    name="dataFinal"
+                    value={this.state.dataFinal}
+                    onChange={this.handleChange}
+                    onDayChange={this.handleFinDayChange}
                     formatDate={formatDate}
                     format={FORMAT}
                     parseDate={parseDate}
@@ -113,6 +198,7 @@ class Form extends Component {
                     />
             </div>    
           </label>  
+
 
           <label>
           Item:
