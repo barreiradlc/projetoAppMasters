@@ -136,7 +136,7 @@ class Emprestimos extends Component {
           <Button color="primary" onClick={() => this.toggleVisual("devolvidos")} style={{ marginBottom: '1rem' }}>Devolvidos</Button>
         </div>        
         <h2>Empréstimos atuais</h2>
-        <h4>Itens emprestados: {this.state.emprestimos.filter(emprestimo => !emprestimo.complete).length} //</h4>
+        <h4>Itens emprestados: {this.state.emprestimos.filter(emprestimo => !emprestimo.complete).length}</h4>
             <div className="gradeCards">  
               {ListaEmprestimosCompleta.map(emprestimo => (
               

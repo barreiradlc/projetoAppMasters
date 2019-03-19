@@ -12,13 +12,19 @@ import { Collapse, Button} from 'reactstrap';
 import dateFnsFormat from 'date-fns/format';
 import dateFnsParse from 'date-fns/parse';
 
+// import MomentLocaleUtils from 'react-day-picker/moment';
+
+// import 'moment/locale/pt-br';
+// import 'moment/locale/it';
+
+
 let mensagemItemVazio = 'Todos os campos devem ser preenchidos';
 let mensagemDataInferior = 'Está prestes à atribuir uma data passada à devolução deste item' ;
 let resultadoDataInferior;
 
-const MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro',];
-const WEEKDAYS_LONG = [ 'Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado',];
-const WEEKDAYS_SHORT = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'];
+// const MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro',];
+// const WEEKDAYS_LONG = [ 'Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado',];
+// const WEEKDAYS_SHORT = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'];
 
 function parseDate(str, format, locale) {
   const parsed = dateFnsParse(str, format, { locale });
@@ -44,6 +50,7 @@ class Form extends Component {
         this.handleFinDayChange = this.handleFinDayChange.bind(this);
 
         this.state = {
+            locale: 'it',
             credor:'',
             item: '',
             selectedDay: undefined,
@@ -162,9 +169,11 @@ class Form extends Component {
             onEntered={this.onEntered}
             onExiting={this.onExiting}
             onExited={this.onExited}
-            months={MONTHS}
-            weekdaysLong={WEEKDAYS_LONG}
-            weekdaysShort={WEEKDAYS_SHORT}
+            // localeUtils={MomentLocaleUtils} 
+            // locale={this.state.locale}
+            // months={MONTHS}
+            // weekdaysLong={WEEKDAYS_LONG}
+            // weekdaysShort={WEEKDAYS_SHORT}
           >
           <form onSubmit={this.submeter}>
 
@@ -184,9 +193,12 @@ class Form extends Component {
                     formatDate={formatDate} 
                     format={FORMAT}
                     parseDate={parseDate}
-                    months={MONTHS}
-                    weekdaysLong={WEEKDAYS_LONG}
-                    weekdaysShort={WEEKDAYS_SHORT}
+                    // localeUtils={MomentLocaleUtils} locale={this.state.locale}
+                    // locale="it"
+                    // months={MONTHS}
+                    // weekdaysLong={WEEKDAYS_LONG}
+                    // weekdaysShort={WEEKDAYS_SHORT}
+                    // firstDayOfWeek={1}
                     placeholder={`${dateFnsFormat(new Date(), FORMAT)}`}
                     />
             </div>    
