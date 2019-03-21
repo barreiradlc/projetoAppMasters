@@ -12,7 +12,6 @@ let resultadoRemocao = undefined;
 let mensagemDevolucao = "Está prestes à devolver este item, deseja confirmar?";
 let mensagemRemocao = "Está prestes à remover este item, deseja confirmar?";
 
-
 let currentTime = new Date();
 let agora = currentTime.toISOString();
 
